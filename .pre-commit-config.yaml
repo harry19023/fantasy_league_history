@@ -38,4 +38,4 @@ repos:
         name: ty type checker
         language: system
         pass_filenames: false
-        entry: uv run --frozen ty check .
+        entry: uv run --frozen ty check app

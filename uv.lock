@@ -91,7 +91,7 @@ dependencies = [
     { name = "uvicorn", extra = ["standard"] },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "httpx" },
     { name = "pytest" },
@@ -104,19 +104,22 @@ dev = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.12.1" },
     { name = "fastapi", specifier = ">=0.104.1" },
-    { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.25.2" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.1.0" },
     { name = "pydantic", specifier = ">=2.5.0" },
     { name = "pydantic-settings", specifier = ">=2.1.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.4.1" },
-    { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.21.1" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.12.9" },
     { name = "sqlalchemy", specifier = ">=2.0.23" },
-    { name = "ty", marker = "extra == 'dev'" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.24.0" },
 ]
-provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "httpx", specifier = ">=0.25.2" },
+    { name = "pytest", specifier = ">=8.4.1" },
+    { name = "pytest-asyncio", specifier = ">=0.21.1" },
+    { name = "ruff", specifier = ">=0.12.9" },
+    { name = "ty" },
+]
 
 [[package]]
 name = "fastapi"
