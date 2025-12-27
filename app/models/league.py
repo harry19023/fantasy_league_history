@@ -8,5 +8,4 @@ class League(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False, index=True)
-    year = Column(Integer, nullable=False)
     settings = Column(JSON, nullable=True)

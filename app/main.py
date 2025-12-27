@@ -5,7 +5,11 @@ from sqlalchemy.orm import Session
 from app.database import Base, engine, get_db
 
 # Import models to ensure they're registered
-from app.models import League, Matchup, Player, Team
+from app.models import (
+    Franchise,
+    League,
+    Season,
+)
 
 
 def init_db():
@@ -47,76 +51,37 @@ async def get_leagues(db: Session = Depends(get_db)):
         {
             "id": league.id,
             "name": league.name,
-            "year": league.year,
             "settings": league.settings,
         }
         for league in leagues
     ]
 
 
-@app.get("/leagues/{league_id}/teams")
-async def get_teams(league_id: int, db: Session = Depends(get_db)):
-    """Get all teams for a league"""
-    teams = db.query(Team).filter(Team.league_id == league_id).all()
+@app.get("/leagues/{league_id}/franchises")
+async def get_franchises(league_id: int, db: Session = Depends(get_db)):
+    """Get all franchises for a league"""
+    franchises = db.query(Franchise).filter(Franchise.league_id == league_id).all()
     return [
         {
-            "id": team.id,
-            "name": team.name,
-            "owner_name": team.owner_name,
-            "league_id": team.league_id,
+            "id": franchise.id,
+            "name": franchise.name,
+            "league_id": franchise.league_id,
         }
-        for team in teams
+        for franchise in franchises
     ]
 
 
-@app.get("/teams/{team_id}/players")
-async def get_team_players(team_id: int, db: Session = Depends(get_db)):
-    """Get all players for a team"""
-    players = db.query(Player).filter(Player.team_id == team_id).all()
+@app.get("/leagues/{league_id}/seasons")
+async def get_seasons(league_id: int, db: Session = Depends(get_db)):
+    """Get all seasons for a league"""
+    seasons = db.query(Season).filter(Season.league_id == league_id).all()
     return [
         {
-            "id": player.id,
-            "name": player.name,
-            "position": player.position,
-            "team_id": player.team_id,
+            "id": season.id,
+            "year": season.year,
+            "start_date": season.start_date.isoformat() if season.start_date else None,
+            "end_date": season.end_date.isoformat() if season.end_date else None,
+            "league_id": season.league_id,
         }
-        for player in players
-    ]
-
-
-@app.get("/leagues/{league_id}/matchups")
-async def get_matchups(league_id: int, db: Session = Depends(get_db)):
-    """Get all matchups for a league"""
-    matchups = db.query(Matchup).filter(Matchup.league_id == league_id).all()
-    return [
-        {
-            "id": matchup.id,
-            "week": matchup.week,
-            "team1_id": matchup.team1_id,
-            "team2_id": matchup.team2_id,
-            "team1_score": matchup.team1_score,
-            "team2_score": matchup.team2_score,
-        }
-        for matchup in matchups
-    ]
-
-
-@app.get("/leagues/{league_id}/matchups/week/{week}")
-async def get_week_matchups(league_id: int, week: int, db: Session = Depends(get_db)):
-    """Get matchups for a specific week"""
-    matchups = (
-        db.query(Matchup)
-        .filter(Matchup.league_id == league_id, Matchup.week == week)
-        .all()
-    )
-    return [
-        {
-            "id": matchup.id,
-            "week": matchup.week,
-            "team1_id": matchup.team1_id,
-            "team2_id": matchup.team2_id,
-            "team1_score": matchup.team1_score,
-            "team2_score": matchup.team2_score,
-        }
-        for matchup in matchups
+        for season in seasons
     ]
