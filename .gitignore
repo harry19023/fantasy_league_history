@@ -26,9 +26,6 @@ env/
 ENV/
 .venv
 
-# uv
-uv.lock
-.python-version
 
 # Environment variables
 .env

@@ -7,8 +7,11 @@ from app.database import Base, engine, get_db
 # Import models to ensure they're registered
 from app.models import League, Matchup, Player, Team
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+
+def init_db():
+    """Initialize database tables. Call this explicitly when needed."""
+    Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title="Fantasy League History API",

@@ -38,5 +38,10 @@ jobs:
       with:
         python-version: '3.14'
 
+    - name: Sync dependencies
+      run: uv sync --dev
+
     - name: Run tests
-      run: "uv run pytest tests/"
+      env:
+        DATABASE_URL: postgresql://fantasy_user:fantasy_password@localhost:5432/fantasy_league_test
+      run: uv run pytest tests/ -v
