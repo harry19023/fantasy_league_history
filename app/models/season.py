@@ -5,10 +5,10 @@ from app.database import Base
 
 
 class Season(Base):
-    __tablename__ = "seasons"
+    __tablename__ = "season"
 
     id = Column(Integer, primary_key=True, index=True)
-    league_id = Column(Integer, ForeignKey("leagues.id"), nullable=False)
+    league_id = Column(Integer, ForeignKey("league.id"), nullable=False)
     year = Column(Integer, nullable=False, index=True)
     start_date = Column(Date, nullable=True)
     end_date = Column(Date, nullable=True)

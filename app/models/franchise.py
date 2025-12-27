@@ -5,10 +5,10 @@ from app.database import Base
 
 
 class Franchise(Base):
-    __tablename__ = "franchises"
+    __tablename__ = "franchise"
 
     id = Column(Integer, primary_key=True, index=True)
-    league_id = Column(Integer, ForeignKey("leagues.id"), nullable=False)
+    league_id = Column(Integer, ForeignKey("league.id"), nullable=False)
     name = Column(String, nullable=False)
 
     # Relationships

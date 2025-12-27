@@ -5,16 +5,16 @@ from app.database import Base
 
 
 class Game(Base):
-    __tablename__ = "games"
+    __tablename__ = "game"
 
     id = Column(Integer, primary_key=True, index=True)
-    season_id = Column(Integer, ForeignKey("seasons.id"), nullable=False)
+    season_id = Column(Integer, ForeignKey("season.id"), nullable=False)
     week = Column(Integer, nullable=False)
     game_type = Column(
         String, nullable=False
     )  # "REGULAR", "PLAYOFF_WINNERS", "PLAYOFF_LOSERS"
-    franchise1_id = Column(Integer, ForeignKey("franchises.id"), nullable=False)
-    franchise2_id = Column(Integer, ForeignKey("franchises.id"), nullable=False)
+    franchise1_id = Column(Integer, ForeignKey("franchise.id"), nullable=False)
+    franchise2_id = Column(Integer, ForeignKey("franchise.id"), nullable=False)
     franchise1_score = Column(Float, nullable=True)
     franchise2_score = Column(Float, nullable=True)
     game_date = Column(Date, nullable=True)

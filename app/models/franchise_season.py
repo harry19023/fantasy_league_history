@@ -5,12 +5,12 @@ from app.database import Base
 
 
 class FranchiseSeason(Base):
-    __tablename__ = "franchise_seasons"
+    __tablename__ = "franchise_season"
 
     id = Column(Integer, primary_key=True, index=True)
-    franchise_id = Column(Integer, ForeignKey("franchises.id"), nullable=False)
-    season_id = Column(Integer, ForeignKey("seasons.id"), nullable=False)
-    manager_id = Column(Integer, ForeignKey("managers.id"), nullable=False)
+    franchise_id = Column(Integer, ForeignKey("franchise.id"), nullable=False)
+    season_id = Column(Integer, ForeignKey("season.id"), nullable=False)
+    manager_id = Column(Integer, ForeignKey("manager.id"), nullable=False)
 
     # Regular season stats
     regular_wins = Column(Integer, default=0, nullable=False)

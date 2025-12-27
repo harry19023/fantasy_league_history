@@ -5,12 +5,12 @@ from app.database import Base
 
 
 class Lineup(Base):
-    __tablename__ = "lineups"
+    __tablename__ = "lineup"
 
     id = Column(Integer, primary_key=True, index=True)
-    game_id = Column(Integer, ForeignKey("games.id"), nullable=False)
-    franchise_id = Column(Integer, ForeignKey("franchises.id"), nullable=False)
-    player_id = Column(Integer, ForeignKey("players.id"), nullable=False)
+    game_id = Column(Integer, ForeignKey("game.id"), nullable=False)
+    franchise_id = Column(Integer, ForeignKey("franchise.id"), nullable=False)
+    player_id = Column(Integer, ForeignKey("player.id"), nullable=False)
     score = Column(Float, nullable=True)
     position = Column(
         String, nullable=True

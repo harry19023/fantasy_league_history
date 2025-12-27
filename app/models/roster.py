@@ -5,12 +5,12 @@ from app.database import Base
 
 
 class Roster(Base):
-    __tablename__ = "rosters"
+    __tablename__ = "roster"
 
     id = Column(Integer, primary_key=True, index=True)
-    team_id = Column(Integer, ForeignKey("teams.id"), nullable=False)
+    team_id = Column(Integer, ForeignKey("team.id"), nullable=False)
     week = Column(Integer, nullable=False)
-    player_id = Column(Integer, ForeignKey("players.id"), nullable=False)
+    player_id = Column(Integer, ForeignKey("player.id"), nullable=False)
 
     # Relationships
     team = relationship("Team", backref="rosters")

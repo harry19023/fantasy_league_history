@@ -5,13 +5,13 @@ from app.database import Base
 
 
 class Matchup(Base):
-    __tablename__ = "matchups"
+    __tablename__ = "matchup"
 
     id = Column(Integer, primary_key=True, index=True)
-    league_id = Column(Integer, ForeignKey("leagues.id"), nullable=False)
+    league_id = Column(Integer, ForeignKey("league.id"), nullable=False)
     week = Column(Integer, nullable=False)
-    team1_id = Column(Integer, ForeignKey("teams.id"), nullable=False)
-    team2_id = Column(Integer, ForeignKey("teams.id"), nullable=False)
+    team1_id = Column(Integer, ForeignKey("team.id"), nullable=False)
+    team2_id = Column(Integer, ForeignKey("team.id"), nullable=False)
     team1_score = Column(Float, nullable=True)
     team2_score = Column(Float, nullable=True)
 
