@@ -1,0 +1,41 @@
+default_language_version:
+    python: python3.14
+
+repos:
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.9
+    hooks:
+      - id: actionlint-docker
+        args: ['-color', '-shellcheck=']
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.104.0
+    hooks:
+      - id: terraform_tflint
+      - id: terraform_fmt
+        args:
+          - --args=-write=true
+      - id: terraform_validate
+        args:
+          - --hook-config=--mode=always-regenerate-lockfile
+        exclude: 'build_wheel|terraform/module/job/[^/]+|terraform/module/pooled_job/[^/]+'
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      - id: ruff-check
+        args: ['--fix' ]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+    -   id: check-toml
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: name-tests-test
+  - repo: local
+    hooks:
+      - id: ty
+        name: ty type checker
+        language: system
+        pass_filenames: false
+        entry: uv run --frozen ty check .

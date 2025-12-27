@@ -1,0 +1,6 @@
+---
+alwaysApply: true
+---
+
+- This project uses uv to manage the python venv. always use uv when running python commands
+- This project uses pytest. use `uv run pytest` to run tests

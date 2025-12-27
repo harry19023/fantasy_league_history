@@ -1,0 +1,16 @@
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
+from app.database import Base
+
+
+class Player(Base):
+    __tablename__ = "players"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False, index=True)
+    position = Column(String, nullable=False)
+    team_id = Column(Integer, ForeignKey("teams.id"), nullable=True)
+
+    # Relationships
+    team = relationship("Team", backref="players")

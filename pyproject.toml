@@ -1,0 +1,60 @@
+[project]
+name = "fantasy-league-history"
+version = "0.1.0"
+description = "API for tracking fantasy league statistics and history"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "sqlalchemy>=2.0.23",
+    "psycopg[binary]>=3.1.0",
+    "alembic>=1.12.1",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.1",
+    "ruff>=0.12.9",
+    "pytest-asyncio>=0.21.1",
+    "httpx>=0.25.2",
+    "ty",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.ruff.lint]
+select = [
+    # https://docs.astral.sh/ruff/rules/
+    "C4",   # flake8-comprehensions
+    "COM",  # flake8-commas
+    "ISC",  # flake8-implicit-str-concat
+    "E",    # pycodestyle
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "PERF", # perflint
+    "RUF",  # ruff specific rules
+]
+ignore = [
+    "COM812",  # trailing comma, let ruff-format handle this
+    "E501",    # line-too-long, let ruff-format handle this
+    "N812",    # lowercase-imported-as-non-lowercase, allow `import pyspark.sql.functions as F`
+]
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "[%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+testpaths = ["tests"]
+python_files = ["*_test.py"]
+python_classes = ["*Test"]
+python_functions = ["test_*", "*_test"]
+asyncio_mode = "auto"
